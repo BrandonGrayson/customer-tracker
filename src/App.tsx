@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import "./App.css";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import CollapsibleTable from "./table";
+import FormDialog from "./components/Dialog";
 
 function App() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box className="table">
+      <Typography>Customer Tracker</Typography>
+      <Button onClick={handleClickOpen}>Add Customer</Button>
+      <Button>Remove Customer</Button>
+      <Button>Update Customer</Button>
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <CollapsibleTable />
+        </Grid>
+      </Grid>
+      <FormDialog open={open} setOpen={setOpen} />
+    </Box>
   );
 }
 
