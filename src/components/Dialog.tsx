@@ -21,22 +21,25 @@ export default function FormDialog({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [value, setValue] = React.useState("female");
-  const [services] = useState([
-    "Kitchen",
-    "Bath",
-    "Cabinets",
-    "Flooring",
-    "Bedrooms",
-  ]);
+  const [services, setServices] = useState<string[]>([]);
   const handleClose = () => {
     setOpen(false);
   };
 
-  //   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     console.log("event", event);
-  //     setValue((event.target as HTMLInputElement).value);
-  //   };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setChecked(event.target.checked);
+    // console.log("event", event.target.value);
+    // Needs to loop through the services and check if the current value is present
+    const index = services.indexOf(event.target.value);
+
+    if (index === -1) {
+      setServices([...services, event.target.value]);
+    } else {
+      services.filter((service) => service !== event.target.value);
+    }
+  };
+
+  console.log("services", services);
 
   return (
     <div>
@@ -47,9 +50,56 @@ export default function FormDialog({
             Fill out Form to modify Customer Info
           </DialogContentText>
           <FormGroup>
-            {services.map((service) => (
-              <FormControlLabel control={<Checkbox />} label={service} />
-            ))}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={services.includes("Kitchen")}
+                  onChange={handleChange}
+                />
+              }
+              label={"Kitchen"}
+              value="Kitchen"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={services.includes("Bath")}
+                  onChange={handleChange}
+                />
+              }
+              label={"Bath"}
+              value="Bath"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={services.includes("Cabinets")}
+                  onChange={handleChange}
+                />
+              }
+              label={"Cabinets"}
+              value="Cabinets"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={services.includes("Flooring")}
+                  onChange={handleChange}
+                />
+              }
+              label={"Flooring"}
+              value="Flooring"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={services.includes("Bedrooms")}
+                  onChange={handleChange}
+                />
+              }
+              label={"Bedrooms"}
+              value="Bedrooms"
+            />
           </FormGroup>
           <FormControl>
             <TextField
