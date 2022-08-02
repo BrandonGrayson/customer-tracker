@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -7,6 +8,10 @@ import {
   DialogTitle,
   Button,
   TextField,
+  FormControlLabel,
+  FormControl,
+  FormGroup,
+  Checkbox,
 } from "@mui/material";
 
 export default function FormDialog({
@@ -16,9 +21,22 @@ export default function FormDialog({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const [value, setValue] = React.useState("female");
+  const [services] = useState([
+    "Kitchen",
+    "Bath",
+    "Cabinets",
+    "Flooring",
+    "Bedrooms",
+  ]);
   const handleClose = () => {
     setOpen(false);
   };
+
+  //   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     console.log("event", event);
+  //     setValue((event.target as HTMLInputElement).value);
+  //   };
 
   return (
     <div>
@@ -28,15 +46,22 @@ export default function FormDialog({
           <DialogContentText>
             Fill out Form to modify Customer Info
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
+          <FormGroup>
+            {services.map((service) => (
+              <FormControlLabel control={<Checkbox />} label={service} />
+            ))}
+          </FormGroup>
+          <FormControl>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Name"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
